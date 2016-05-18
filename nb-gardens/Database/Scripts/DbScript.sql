@@ -237,35 +237,6 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nbgardens`.`orderline`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`orderline` (
-  `orderLineId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `productId` INT(11) NOT NULL COMMENT '',
-  `quantity` INT(11) NOT NULL COMMENT '',
-  `orderId` INT(11) NOT NULL COMMENT '',
-  `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  `dateCreated` DATE NOT NULL COMMENT '',
-  `salesorder_salesOrderID` INT(11) NOT NULL COMMENT '',
-  `purchaseorder_salesOrderID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`orderLineId`, `salesorder_salesOrderID`, `purchaseorder_salesOrderID`)  COMMENT '',
-  INDEX `fk_orderline_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
-  INDEX `fk_orderline_purchaseorder1_idx` (`purchaseorder_salesOrderID` ASC)  COMMENT '',
-  CONSTRAINT `fk_orderline_purchaseorder1`
-    FOREIGN KEY (`purchaseorder_salesOrderID`)
-    REFERENCES `nbgardens`.`purchaseorder` (`salesOrderID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orderline_salesorder1`
-    FOREIGN KEY (`salesorder_salesOrderID`)
-    REFERENCES `nbgardens`.`salesorder` (`salesOrderID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `nbgardens`.`stockstatus`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`stockstatus` (
@@ -285,8 +256,8 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`supplier` (
   `dateCreated` DATE NOT NULL COMMENT '',
   `address_addressId` VARCHAR(45) NOT NULL COMMENT 'Removed Address ID as a primary key, to stop it appearing as a foreign key in Stock table\n\nSam A, 14:13 18th May',
   PRIMARY KEY (`supplierID`)  COMMENT '',
-  INDEX `fk_supplier_address1_idx` (`address_addressId` ASC)  COMMENT '',
   UNIQUE INDEX `supplierID_UNIQUE` (`supplierID` ASC)  COMMENT '',
+  INDEX `fk_supplier_address1_idx` (`address_addressId` ASC)  COMMENT '',
   CONSTRAINT `fk_supplier_address1`
     FOREIGN KEY (`address_addressId`)
     REFERENCES `nbgardens`.`address` (`addressId`)
@@ -342,6 +313,42 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`product` (
   CONSTRAINT `fk_product_stock1`
     FOREIGN KEY (`stock_stockID`)
     REFERENCES `nbgardens`.`stock` (`stockID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`orderline`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`orderline` (
+  `orderLineId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `productId` INT(11) NOT NULL COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  `orderId` INT(11) NOT NULL COMMENT '',
+  `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `salesorder_salesOrderID` INT(11) NOT NULL COMMENT '',
+  `purchaseorder_salesOrderID` INT(11) NOT NULL COMMENT '',
+  `product_productID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`orderLineId`, `salesorder_salesOrderID`, `purchaseorder_salesOrderID`, `product_productID`)  COMMENT '',
+  INDEX `fk_orderline_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
+  INDEX `fk_orderline_purchaseorder1_idx` (`purchaseorder_salesOrderID` ASC)  COMMENT '',
+  INDEX `fk_orderline_product1_idx` (`product_productID` ASC)  COMMENT '',
+  CONSTRAINT `fk_orderline_purchaseorder1`
+    FOREIGN KEY (`purchaseorder_salesOrderID`)
+    REFERENCES `nbgardens`.`purchaseorder` (`salesOrderID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orderline_salesorder1`
+    FOREIGN KEY (`salesorder_salesOrderID`)
+    REFERENCES `nbgardens`.`salesorder` (`salesOrderID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orderline_product1`
+    FOREIGN KEY (`product_productID`)
+    REFERENCES `nbgardens`.`product` (`productID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
