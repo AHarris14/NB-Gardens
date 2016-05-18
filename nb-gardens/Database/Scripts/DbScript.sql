@@ -163,25 +163,25 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`salesorder` (
   `packageCost` DECIMAL(7,2) NOT NULL COMMENT '',
   `discount` DECIMAL(7,2) NOT NULL COMMENT '',
   `statusId` INT(11) NOT NULL COMMENT '',
-  `customer_customerID` INT(11) NOT NULL COMMENT '',
-  `address_addressId` VARCHAR(45) NOT NULL COMMENT '',
-  `paymentdetails_PaymentID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`salesOrderID`, `paymentdetails_PaymentID`)  COMMENT '',
-  INDEX `fk_salesorder_customer1_idx` (`customer_customerID` ASC)  COMMENT '',
-  INDEX `fk_salesorder_address1_idx` (`address_addressId` ASC)  COMMENT '',
-  INDEX `fk_salesorder_paymentdetails1_idx` (`paymentdetails_PaymentID` ASC)  COMMENT '',
+  `customerID` INT(11) NOT NULL COMMENT '',
+  `addressId` VARCHAR(45) NOT NULL COMMENT '',
+  `paymentID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`salesOrderID`)  COMMENT '',
+  INDEX `fk_salesorder_customer1_idx` (`customerID` ASC)  COMMENT '',
+  INDEX `fk_salesorder_address1_idx` (`addressId` ASC)  COMMENT '',
+  INDEX `fk_salesorder_paymentdetails1_idx` (`paymentID` ASC)  COMMENT '',
   CONSTRAINT `fk_salesorder_address1`
-    FOREIGN KEY (`address_addressId`)
+    FOREIGN KEY (`addressId`)
     REFERENCES `nbgardens`.`address` (`addressId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_salesorder_customer1`
-    FOREIGN KEY (`customer_customerID`)
+    FOREIGN KEY (`customerID`)
     REFERENCES `nbgardens`.`customer` (`customerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_salesorder_paymentdetails1`
-    FOREIGN KEY (`paymentdetails_PaymentID`)
+    FOREIGN KEY (`paymentID`)
     REFERENCES `nbgardens`.`paymentdetails` (`PaymentID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
