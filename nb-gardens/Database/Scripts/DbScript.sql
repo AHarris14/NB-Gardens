@@ -254,8 +254,8 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`supplier` (
   `supplierID` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Added supplier index as a Unique Index\n\nSam A, 14:13 18th May',
   `supplierName` VARCHAR(30) NOT NULL COMMENT '',
   `dateCreated` DATE NOT NULL COMMENT '',
-  `address_addressId` VARCHAR(45) NOT NULL COMMENT 'Removed Address ID as a primary key, to stop it appearing as a foreign key in Stock table\n\nSam A, 14:13 18th May',
-  PRIMARY KEY (`supplierID`)  COMMENT '',
+  `address_addressId` VARCHAR(45) NOT NULL COMMENT '',
+  PRIMARY KEY (`supplierID`, `address_addressId`)  COMMENT '',
   UNIQUE INDEX `supplierID_UNIQUE` (`supplierID` ASC)  COMMENT '',
   INDEX `fk_supplier_address1_idx` (`address_addressId` ASC)  COMMENT '',
   CONSTRAINT `fk_supplier_address1`
@@ -332,10 +332,15 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`orderline` (
   `salesorder_salesOrderID` INT(11) NOT NULL COMMENT '',
   `purchaseorder_salesOrderID` INT(11) NOT NULL COMMENT '',
   `product_productID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`orderLineId`, `salesorder_salesOrderID`, `purchaseorder_salesOrderID`, `product_productID`)  COMMENT '',
+  PRIMARY KEY (`orderLineId`)  COMMENT '',
   INDEX `fk_orderline_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
   INDEX `fk_orderline_purchaseorder1_idx` (`purchaseorder_salesOrderID` ASC)  COMMENT '',
   INDEX `fk_orderline_product1_idx` (`product_productID` ASC)  COMMENT '',
+  CONSTRAINT `fk_orderline_product1`
+    FOREIGN KEY (`product_productID`)
+    REFERENCES `nbgardens`.`product` (`productID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_orderline_purchaseorder1`
     FOREIGN KEY (`purchaseorder_salesOrderID`)
     REFERENCES `nbgardens`.`purchaseorder` (`salesOrderID`)
@@ -344,11 +349,6 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`orderline` (
   CONSTRAINT `fk_orderline_salesorder1`
     FOREIGN KEY (`salesorder_salesOrderID`)
     REFERENCES `nbgardens`.`salesorder` (`salesOrderID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orderline_product1`
-    FOREIGN KEY (`product_productID`)
-    REFERENCES `nbgardens`.`product` (`productID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -366,11 +366,8 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`returns` (
   `returnReason` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
   `dateCreated` DATE NOT NULL COMMENT '',
   `orderline_orderLineId` INT(11) NOT NULL COMMENT '',
-  `orderline_salesorder_salesOrderID` INT(11) NOT NULL COMMENT '',
-  `orderline_salesorder_customer_customerID` INT(11) NOT NULL COMMENT '',
-  `orderline_salesorder_address_addressId` VARCHAR(45) NOT NULL COMMENT '',
-  PRIMARY KEY (`returnID`, `orderline_orderLineId`, `orderline_salesorder_salesOrderID`, `orderline_salesorder_customer_customerID`, `orderline_salesorder_address_addressId`)  COMMENT '',
-  INDEX `fk_returns_orderline1_idx` (`orderline_orderLineId` ASC, `orderline_salesorder_salesOrderID` ASC, `orderline_salesorder_customer_customerID` ASC, `orderline_salesorder_address_addressId` ASC)  COMMENT '',
+  PRIMARY KEY (`returnID`, `orderline_orderLineId`)  COMMENT '',
+  INDEX `fk_returns_orderline1_idx` (`orderline_orderLineId` ASC)  COMMENT '',
   CONSTRAINT `fk_returns_orderline1`
     FOREIGN KEY (`orderline_orderLineId`)
     REFERENCES `nbgardens`.`orderline` (`orderLineId`)
