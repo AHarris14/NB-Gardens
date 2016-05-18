@@ -37,7 +37,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `nbgardens`.`customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`customer` (
-  `customerID` INT(11) NOT NULL COMMENT '',
+  `customerIDssss` INT(11) NOT NULL COMMENT '',
   `firstName` VARCHAR(30) NOT NULL COMMENT '',
   `lastName` VARCHAR(45) NOT NULL COMMENT '',
   `DoB` DATE NOT NULL COMMENT '',
