@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`address` (
   `postCode` VARCHAR(9) NOT NULL COMMENT '',
   `country` VARCHAR(45) NOT NULL COMMENT '',
   `dateCreated` DATE NOT NULL COMMENT '',
-  `dateModified` DATE NOT NULL COMMENT '',
+  `dateModifiedssss` DATE NOT NULL COMMENT '',
   PRIMARY KEY (`addressLine1`, `postCode`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
