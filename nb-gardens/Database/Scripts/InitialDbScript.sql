@@ -5,6 +5,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema nbgardens
 -- -----------------------------------------------------
 
@@ -18,14 +21,15 @@ USE `nbgardens` ;
 -- Table `nbgardens`.`address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`address` (
+  `addressID` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `addressLine1` VARCHAR(50) NOT NULL COMMENT '',
-  `addressLine2` VARCHAR(45) NOT NULL COMMENT '',
-  `addressLine3` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
-  `postCode` VARCHAR(9) NOT NULL COMMENT '',
-  `country` VARCHAR(45) NOT NULL COMMENT '',
+  `addressLine2` VARCHAR(30) NOT NULL COMMENT '',
+  `postCode` VARCHAR(10) NOT NULL COMMENT '',
+  `town` VARCHAR(30) NOT NULL COMMENT '',
+  `county` VARCHAR(20) NOT NULL COMMENT '',
+  `country` VARCHAR(30) NOT NULL COMMENT '',
   `dateCreated` DATE NOT NULL COMMENT '',
-  `dateModified` DATE NOT NULL COMMENT '',
-  PRIMARY KEY (`addressLine1`, `postCode`)  COMMENT '')
+  PRIMARY KEY (`addressID`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -88,13 +92,14 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `nbgardens`.`paymentdetails`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`paymentdetails` (
+  `paymentID` VARCHAR(45) NOT NULL COMMENT '',
   `cardNumber` VARCHAR(16) NOT NULL COMMENT '',
   `cardHolderName` VARCHAR(65) NOT NULL COMMENT '',
   `cardType` VARCHAR(20) NOT NULL COMMENT '',
   `expirationDate` DATE NOT NULL COMMENT '',
   `dateCreated` DATE NOT NULL COMMENT '',
   `dateModified` DATE NOT NULL COMMENT '',
-  PRIMARY KEY (`cardNumber`)  COMMENT '')
+  PRIMARY KEY (`paymentID`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -105,9 +110,11 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `nbgardens`.`product` (
   `productID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `productName` VARCHAR(45) NOT NULL COMMENT '',
-  `description` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
-  `dateCreated` DATE NOT NULL COMMENT '',
-  `dateMod` DATE NOT NULL COMMENT '',
+  `quantity` INT NOT NULL COMMENT '',
+  `description` VARCHAR(200) NULL COMMENT '',
+  `length` DECIMAL(5,2) NULL COMMENT '',
+  `height` DECIMAL(5,2) NULL COMMENT '',
+  `width` DECIMAL(5,2) NULL COMMENT '',
   PRIMARY KEY (`productID`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -159,7 +166,6 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`salesorder` (
   `totalCost` DECIMAL(10,0) NOT NULL COMMENT '',
   `dispatchTime` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
   `dispatchDate` DATE NULL DEFAULT NULL COMMENT '',
-  `PackageCost` DECIMAL(5,2) NOT NULL COMMENT '',
   PRIMARY KEY (`salesOrderID`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -169,11 +175,9 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `nbgardens`.`staff`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`staff` (
-  `staffID` INT(11) NOT NULL COMMENT '',
-  `dep` VARCHAR(20) NOT NULL COMMENT '',
-  `role` VARCHAR(25) NOT NULL COMMENT '',
-  `dateCreated` DATE NULL DEFAULT NULL COMMENT '',
-  `dateMod` DATE NULL DEFAULT NULL COMMENT '',
+  `staffID` VARCHAR(20) NOT NULL COMMENT '',
+  `name` VARCHAR(30) NOT NULL COMMENT '',
+  `password` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`staffID`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
