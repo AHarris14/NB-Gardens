@@ -110,13 +110,13 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `nbgardens`.`purchaseorder`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`purchaseorder` (
-  `salesOrderID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `salesOrderID` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Made some camel case corrections and basic cleanup\n\nSam A, 14:47, 18th May',
   `dateCreated` DATE NOT NULL COMMENT '',
-  `dispathDate` DATE NOT NULL COMMENT '',
+  `dispatchDate` DATE NOT NULL COMMENT '',
   `baseCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  `vATCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  `vatCost` DECIMAL(7,2) NOT NULL COMMENT '',
   `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  `statusId` INT(11) NOT NULL COMMENT '',
+  `statusID` INT(11) NOT NULL COMMENT '',
   `deliveryCost` DECIMAL(10,0) NOT NULL COMMENT '',
   `discount` DECIMAL(7,2) NULL DEFAULT NULL COMMENT '',
   `packageCost` DECIMAL(7,2) NOT NULL COMMENT '',
