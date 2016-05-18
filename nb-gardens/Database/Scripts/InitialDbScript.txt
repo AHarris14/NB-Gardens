@@ -21,7 +21,7 @@ USE `nbgardens` ;
 -- Table `nbgardens`.`address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`address` (
-  `addressLine1asd` VARCHAR(50) NOT NULL COMMENT '',
+  `addressLine1Test` VARCHAR(50) NOT NULL COMMENT '',
   `addressLine2` VARCHAR(45) NOT NULL COMMENT '',
   `addressLine3` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
   `postCode` VARCHAR(9) NOT NULL COMMENT '',
@@ -37,7 +37,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `nbgardens`.`customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`customer` (
-  `customerIDssss` INT(11) NOT NULL COMMENT '',
+  `customerID` INT(11) NOT NULL COMMENT '',
   `firstName` VARCHAR(30) NOT NULL COMMENT '',
   `lastName` VARCHAR(45) NOT NULL COMMENT '',
   `DoB` DATE NOT NULL COMMENT '',
