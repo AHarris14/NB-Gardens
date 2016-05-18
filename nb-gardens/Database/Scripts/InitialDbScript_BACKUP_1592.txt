@@ -1,0 +1,393 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+<<<<<<< HEAD
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema nbgardens
+=======
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema nbgardens
+-- -----------------------------------------------------
+<<<<<<< HEAD
+CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 ;
+USE `nbgardens` ;
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`address` (
+  `addressLine1` VARCHAR(50) NOT NULL,
+  `addressLine2` VARCHAR(45) NOT NULL,
+  `addressLine3` VARCHAR(45) NULL DEFAULT NULL,
+  `postCode` VARCHAR(9) NOT NULL,
+  `country` VARCHAR(45) NOT NULL,
+  `dateCreated` DATE NOT NULL,
+  `dateModified` DATE NOT NULL,
+  PRIMARY KEY (`addressLine1`, `postCode`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`customer` (
+  `customerID` INT(11) NOT NULL,
+  `firstName` VARCHAR(30) NOT NULL,
+  `lastName` VARCHAR(45) NOT NULL,
+  `DoB` DATE NOT NULL,
+  `eMail` VARCHAR(60) NULL DEFAULT NULL,
+  `credit` DECIMAL(7,2) NOT NULL,
+  `status` INT(11) NOT NULL,
+  `phoneNumber` VARCHAR(25) NOT NULL,
+  `dateCreated` DATE NOT NULL,
+  `dateModified` DATE NOT NULL,
+  PRIMARY KEY (`customerID`))
+=======
+
+-- -----------------------------------------------------
+-- Schema nbgardens
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 ;
+USE `nbgardens` ;
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`address` (
+  `addressLine1Test` VARCHAR(50) NOT NULL COMMENT '',
+  `addressLine2` VARCHAR(45) NOT NULL COMMENT '',
+  `addressLine3` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `postCode` VARCHAR(9) NOT NULL COMMENT '',
+  `country` VARCHAR(45) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateModified` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`addressLine1`, `postCode`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+<<<<<<< HEAD
+-- Table `nbgardens`.`customerstatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`customerstatus` (
+  `statusId` INT(11) NOT NULL AUTO_INCREMENT,
+  `status` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`statusId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`orderevent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`orderevent` (
+  `orderEventID` INT(11) NOT NULL AUTO_INCREMENT,
+  `eventName` VARCHAR(30) NOT NULL,
+  `dateCreated` DATE NOT NULL,
+  `dateMod` DATE NOT NULL,
+  PRIMARY KEY (`orderEventID`))
+=======
+-- Table `nbgardens`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`customer` (
+  `customerID` INT(11) NOT NULL COMMENT '',
+  `firstName` VARCHAR(30) NOT NULL COMMENT '',
+  `lastName` VARCHAR(45) NOT NULL COMMENT '',
+  `DoB` DATE NOT NULL COMMENT '',
+  `eMail` VARCHAR(60) NULL DEFAULT NULL COMMENT '',
+  `credit` DECIMAL(7,2) NOT NULL COMMENT '',
+  `status` INT(11) NOT NULL COMMENT '',
+  `phoneNumber` VARCHAR(25) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateModified` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`customerID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+<<<<<<< HEAD
+-- Table `nbgardens`.`wishlist`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`wishlist` (
+  `createdDate` DATETIME NOT NULL,
+  `orderline_lineNo` INT(11) NOT NULL,
+  `customer_customerID` INT(11) NOT NULL,
+  PRIMARY KEY (`orderline_lineNo`, `customer_customerID`),
+  INDEX `fk_wishlist_customer1_idx` (`customer_customerID` ASC),
+  CONSTRAINT `fk_wishlist_customer1`
+    FOREIGN KEY (`customer_customerID`)
+    REFERENCES `nbgardens`.`customer` (`customerID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+=======
+-- Table `nbgardens`.`customerstatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`customerstatus` (
+  `statusId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `status` VARCHAR(20) NOT NULL COMMENT '',
+  PRIMARY KEY (`statusId`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+<<<<<<< HEAD
+-- Table `nbgardens`.`orderline`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`orderline` (
+  `lineNo` INT(11) NOT NULL AUTO_INCREMENT,
+  `quantity` INT(11) NOT NULL,
+  `wishlist_orderline_lineNo` INT(11) NOT NULL,
+  PRIMARY KEY (`lineNo`, `wishlist_orderline_lineNo`),
+  INDEX `fk_orderline_wishlist_idx` (`wishlist_orderline_lineNo` ASC),
+  CONSTRAINT `fk_orderline_wishlist`
+    FOREIGN KEY (`wishlist_orderline_lineNo`)
+    REFERENCES `nbgardens`.`wishlist` (`orderline_lineNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+=======
+-- Table `nbgardens`.`orderevent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`orderevent` (
+  `orderEventID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `eventName` VARCHAR(30) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateMod` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`orderEventID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+<<<<<<< HEAD
+-- Table `nbgardens`.`paymentdetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`paymentdetails` (
+  `cardNumber` VARCHAR(16) NOT NULL,
+  `cardHolderName` VARCHAR(65) NOT NULL,
+  `cardType` VARCHAR(20) NOT NULL,
+  `expirationDate` DATE NOT NULL,
+  `dateCreated` DATE NOT NULL,
+  `dateModified` DATE NOT NULL,
+  PRIMARY KEY (`cardNumber`))
+=======
+-- Table `nbgardens`.`orderline`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`orderline` (
+  `lineNo` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`lineNo`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`paymentdetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`paymentdetails` (
+  `cardNumber` VARCHAR(16) NOT NULL COMMENT '',
+  `cardHolderName` VARCHAR(65) NOT NULL COMMENT '',
+  `cardType` VARCHAR(20) NOT NULL COMMENT '',
+  `expirationDate` DATE NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateModified` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`cardNumber`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`product` (
+<<<<<<< HEAD
+  `productID` INT(11) NOT NULL AUTO_INCREMENT,
+  `productName` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NULL DEFAULT NULL,
+  `dateCreated` DATE NOT NULL,
+  `dateMod` DATE NOT NULL,
+  PRIMARY KEY (`productID`))
+=======
+  `productID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `productName` VARCHAR(45) NOT NULL COMMENT '',
+  `description` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateMod` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`productID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`purchaseorder`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`purchaseorder` (
+<<<<<<< HEAD
+  `orderID` INT(11) NOT NULL AUTO_INCREMENT,
+  `dateCreated` DATE NOT NULL,
+  `dateArrived` DATE NULL DEFAULT NULL,
+  `baseCost` DECIMAL(10,0) NOT NULL,
+  `vATCost` DECIMAL(10,0) NOT NULL,
+  `totalCost` DECIMAL(10,0) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `deliveryCost` DECIMAL(10,0) NOT NULL,
+  PRIMARY KEY (`orderID`))
+=======
+  `orderID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateArrived` DATE NULL DEFAULT NULL COMMENT '',
+  `baseCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `vATCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `totalCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `status` VARCHAR(45) NOT NULL COMMENT '',
+  `deliveryCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  PRIMARY KEY (`orderID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`returns`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`returns` (
+<<<<<<< HEAD
+  `returnID` INT(11) NOT NULL,
+  `quantity` INT(11) NOT NULL,
+  `returnDate` DATE NULL DEFAULT NULL,
+  `returnReason` VARCHAR(45) NOT NULL,
+  `dateCreated` DATE NOT NULL,
+  `dateMod` DATE NOT NULL,
+  PRIMARY KEY (`returnID`))
+=======
+  `returnID` INT(11) NOT NULL COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  `returnDate` DATE NULL DEFAULT NULL COMMENT '',
+  `returnReason` VARCHAR(45) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateMod` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`returnID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`salesorder`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`salesorder` (
+<<<<<<< HEAD
+  `salesOrderID` INT(11) NOT NULL AUTO_INCREMENT,
+  `dateCreated` DATE NOT NULL,
+  `timeCreated` VARCHAR(45) NOT NULL,
+  `vATCost` DECIMAL(10,0) NOT NULL,
+  `discount` DECIMAL(10,0) NULL DEFAULT NULL,
+  `postageCost` DECIMAL(10,0) NOT NULL,
+  `baseCost` DECIMAL(10,0) NOT NULL,
+  `totalCost` DECIMAL(10,0) NOT NULL,
+  `dispatchTime` VARCHAR(45) NULL DEFAULT NULL,
+  `dispatchDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`salesOrderID`))
+=======
+  `salesOrderID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `timeCreated` VARCHAR(45) NOT NULL COMMENT '',
+  `vATCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `discount` DECIMAL(10,0) NULL DEFAULT NULL COMMENT '',
+  `postageCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `baseCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `totalCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `dispatchTime` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `dispatchDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`salesOrderID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`staff`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`staff` (
+<<<<<<< HEAD
+  `staffID` INT(11) NOT NULL,
+  `dep` VARCHAR(20) NOT NULL,
+  `role` VARCHAR(25) NOT NULL,
+  `dateCreated` DATE NULL DEFAULT NULL,
+  `dateMod` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`staffID`))
+=======
+  `staffID` INT(11) NOT NULL COMMENT '',
+  `dep` VARCHAR(20) NOT NULL COMMENT '',
+  `role` VARCHAR(25) NOT NULL COMMENT '',
+  `dateCreated` DATE NULL DEFAULT NULL COMMENT '',
+  `dateMod` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`staffID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`stock`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`stock` (
+<<<<<<< HEAD
+  `stockID` INT(11) NOT NULL,
+  `quantity` INT(11) NOT NULL,
+  PRIMARY KEY (`stockID`))
+=======
+  `stockID` INT(11) NOT NULL COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`stockID`)  COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`supplier`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`supplier` (
+<<<<<<< HEAD
+  `supplierID` INT(11) NOT NULL,
+  `supplierName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`supplierID`))
+=======
+  `supplierID` INT(11) NOT NULL COMMENT '',
+  `supplierName` VARCHAR(45) NOT NULL COMMENT '',
+  PRIMARY KEY (`supplierID`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`wishlist`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`wishlist` (
+  `quantity` INT(11) NOT NULL COMMENT '')
+>>>>>>> 7df3982830a03dbd486137675b228b5d3b170bc5
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

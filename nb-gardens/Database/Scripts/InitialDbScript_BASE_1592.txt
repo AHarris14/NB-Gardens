@@ -1,0 +1,200 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema NBGardens
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema NBGardens
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `NBGardens` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `NBGardens` ;
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`customer` (
+  `customerID` INT NOT NULL COMMENT '',
+  `firstName` VARCHAR(30) NOT NULL COMMENT '',
+  `lastName` VARCHAR(45) NOT NULL COMMENT '',
+  `DoB` DATE NOT NULL COMMENT '',
+  `eMail` VARCHAR(60) NULL COMMENT '',
+  `credit` DECIMAL(7,2) NOT NULL COMMENT '',
+  `status` INT NOT NULL COMMENT '',
+  `phoneNumber` VARCHAR(25) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateModified` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`customerID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`salesOrder`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`salesOrder` (
+  `salesOrderID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `timeCreated` VARCHAR(45) NOT NULL COMMENT '',
+  `vATCost` DECIMAL NOT NULL COMMENT '',
+  `discount` DECIMAL NULL COMMENT '',
+  `postageCost` DECIMAL NOT NULL COMMENT '',
+  `baseCost` DECIMAL NOT NULL COMMENT '',
+  `totalCost` DECIMAL NOT NULL COMMENT '',
+  `dispatchTime` VARCHAR(45) NULL COMMENT '',
+  `dispatchDate` DATE NULL COMMENT '',
+  PRIMARY KEY (`salesOrderID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`paymentDetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`paymentDetails` (
+  `cardNumber` VARCHAR(16) NOT NULL COMMENT '',
+  `cardHolderName` VARCHAR(65) NOT NULL COMMENT '',
+  `cardType` VARCHAR(20) NOT NULL COMMENT '',
+  `expirationDate` DATE NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateModified` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`cardNumber`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`staff`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`staff` (
+  `staffID` INT NOT NULL COMMENT '',
+  `dep` VARCHAR(20) NOT NULL COMMENT '',
+  `role` VARCHAR(25) NOT NULL COMMENT '',
+  `dateCreated` DATE NULL COMMENT '',
+  `dateMod` DATE NULL COMMENT '',
+  PRIMARY KEY (`staffID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`stock`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`stock` (
+  `stockID` INT NOT NULL COMMENT '',
+  `quantity` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`stockID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`orderEvent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`orderEvent` (
+  `orderEventID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `eventName` VARCHAR(30) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateMod` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`orderEventID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`address` (
+  `addressLine1` VARCHAR(50) NOT NULL COMMENT '',
+  `addressLine2` VARCHAR(45) NOT NULL COMMENT '',
+  `addressLine3` VARCHAR(45) NULL COMMENT '',
+  `postCode` VARCHAR(9) NOT NULL COMMENT '',
+  `country` VARCHAR(45) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateModified` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`addressLine1`, `postCode`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`supplier`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`supplier` (
+  `supplierID` INT NOT NULL COMMENT '',
+  `supplierName` VARCHAR(45) NOT NULL COMMENT '',
+  PRIMARY KEY (`supplierID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`purchaseOrder`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`purchaseOrder` (
+  `orderID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateArrived` DATE NULL COMMENT '',
+  `baseCost` DECIMAL NOT NULL COMMENT '',
+  `vATCost` DECIMAL NOT NULL COMMENT '',
+  `totalCost` DECIMAL NOT NULL COMMENT '',
+  `status` VARCHAR(45) NOT NULL COMMENT '',
+  `deliveryCost` DECIMAL NOT NULL COMMENT '',
+  PRIMARY KEY (`orderID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`returns`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`returns` (
+  `returnID` INT NOT NULL COMMENT '',
+  `quantity` INT NOT NULL COMMENT '',
+  `returnDate` DATE NULL COMMENT '',
+  `returnReason` VARCHAR(45) NOT NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateMod` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`returnID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`wishlist`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`wishlist` (
+  `quantity` INT NOT NULL COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`orderLine`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`orderLine` (
+  `lineNo` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `quantity` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`lineNo`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`product` (
+  `productID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `productName` VARCHAR(45) NOT NULL COMMENT '',
+  `description` VARCHAR(45) NULL COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dateMod` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`productID`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `NBGardens`.`CustomerStatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `NBGardens`.`CustomerStatus` (
+  `statusId` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `status` VARCHAR(20) NOT NULL COMMENT '',
+  PRIMARY KEY (`statusId`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
