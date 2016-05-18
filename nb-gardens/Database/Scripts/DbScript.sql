@@ -107,6 +107,25 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `nbgardens`.`purchaseorder`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`purchaseorder` (
+  `salesOrderID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `dateCreated` DATE NOT NULL COMMENT '',
+  `dispathDate` DATE NOT NULL COMMENT '',
+  `baseCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  `vATCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  `statusId` INT(11) NOT NULL COMMENT '',
+  `deliveryCost` DECIMAL(10,0) NOT NULL COMMENT '',
+  `discount` DECIMAL(7,2) NULL DEFAULT NULL COMMENT '',
+  `packageCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  PRIMARY KEY (`salesOrderID`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `nbgardens`.`paymentdetails`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`paymentdetails` (
@@ -144,25 +163,25 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`salesorder` (
   `packageCost` DECIMAL(7,2) NOT NULL COMMENT '',
   `discount` DECIMAL(7,2) NOT NULL COMMENT '',
   `statusId` INT(11) NOT NULL COMMENT '',
-  `customer_customerID` INT(11) NOT NULL COMMENT '',
-  `address_addressId` VARCHAR(45) NOT NULL COMMENT '',
-  `paymentdetails_PaymentID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`salesOrderID`, `paymentdetails_PaymentID`)  COMMENT '',
-  INDEX `fk_salesorder_customer1_idx` (`customer_customerID` ASC)  COMMENT '',
-  INDEX `fk_salesorder_address1_idx` (`address_addressId` ASC)  COMMENT '',
-  INDEX `fk_salesorder_paymentdetails1_idx` (`paymentdetails_PaymentID` ASC)  COMMENT '',
+  `customerID` INT(11) NOT NULL COMMENT '',
+  `addressId` VARCHAR(45) NOT NULL COMMENT '',
+  `paymentID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`salesOrderID`)  COMMENT '',
+  INDEX `fk_salesorder_customer1_idx` (`customerID` ASC)  COMMENT '',
+  INDEX `fk_salesorder_address1_idx` (`addressId` ASC)  COMMENT '',
+  INDEX `fk_salesorder_paymentdetails1_idx` (`paymentID` ASC)  COMMENT '',
   CONSTRAINT `fk_salesorder_address1`
-    FOREIGN KEY (`address_addressId`)
+    FOREIGN KEY (`addressId`)
     REFERENCES `nbgardens`.`address` (`addressId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_salesorder_customer1`
-    FOREIGN KEY (`customer_customerID`)
+    FOREIGN KEY (`customerID`)
     REFERENCES `nbgardens`.`customer` (`customerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_salesorder_paymentdetails1`
-    FOREIGN KEY (`paymentdetails_PaymentID`)
+    FOREIGN KEY (`paymentID`)
     REFERENCES `nbgardens`.`paymentdetails` (`PaymentID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -183,25 +202,6 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nbgardens`.`purchaseorder`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`purchaseorder` (
-  `salesOrderID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `dateCreated` DATE NOT NULL COMMENT '',
-  `dispathDate` DATE NOT NULL COMMENT '',
-  `baseCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  `vATCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  `statusId` INT(11) NOT NULL COMMENT '',
-  `deliveryCost` DECIMAL(10,0) NOT NULL COMMENT '',
-  `discount` DECIMAL(7,2) NULL DEFAULT NULL COMMENT '',
-  `packageCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  PRIMARY KEY (`salesOrderID`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `nbgardens`.`orderevent`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`orderevent` (
@@ -217,6 +217,11 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`orderevent` (
   INDEX `fk_orderevent_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
   INDEX `fk_orderevent_staff1_idx` (`staff_staffID` ASC)  COMMENT '',
   INDEX `fk_orderevent_purchaseorder1_idx` (`purchaseorder_salesOrderID` ASC)  COMMENT '',
+  CONSTRAINT `fk_orderevent_purchaseorder1`
+    FOREIGN KEY (`purchaseorder_salesOrderID`)
+    REFERENCES `nbgardens`.`purchaseorder` (`salesOrderID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_orderevent_salesorder1`
     FOREIGN KEY (`salesorder_salesOrderID`)
     REFERENCES `nbgardens`.`salesorder` (`salesOrderID`)
@@ -225,11 +230,6 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`orderevent` (
   CONSTRAINT `fk_orderevent_staff1`
     FOREIGN KEY (`staff_staffID`)
     REFERENCES `nbgardens`.`staff` (`staffID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orderevent_purchaseorder1`
-    FOREIGN KEY (`purchaseorder_salesOrderID`)
-    REFERENCES `nbgardens`.`purchaseorder` (`salesOrderID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -251,14 +251,14 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`orderline` (
   PRIMARY KEY (`orderLineId`, `salesorder_salesOrderID`, `purchaseorder_salesOrderID`)  COMMENT '',
   INDEX `fk_orderline_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
   INDEX `fk_orderline_purchaseorder1_idx` (`purchaseorder_salesOrderID` ASC)  COMMENT '',
-  CONSTRAINT `fk_orderline_salesorder1`
-    FOREIGN KEY (`salesorder_salesOrderID`)
-    REFERENCES `nbgardens`.`salesorder` (`salesOrderID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_orderline_purchaseorder1`
     FOREIGN KEY (`purchaseorder_salesOrderID`)
     REFERENCES `nbgardens`.`purchaseorder` (`salesOrderID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orderline_salesorder1`
+    FOREIGN KEY (`salesorder_salesOrderID`)
+    REFERENCES `nbgardens`.`salesorder` (`salesOrderID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -396,9 +396,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nbgardens`.`RoleEventLink`
+-- Table `nbgardens`.`roleeventlink`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`RoleEventLink` (
+CREATE TABLE IF NOT EXISTS `nbgardens`.`roleeventlink` (
   `Role_roleId` INT(11) NOT NULL COMMENT '',
   `Event_eventId` INT(11) NOT NULL COMMENT '',
   PRIMARY KEY (`Role_roleId`, `Event_eventId`)  COMMENT '',
