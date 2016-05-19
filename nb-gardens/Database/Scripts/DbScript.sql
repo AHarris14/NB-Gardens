@@ -273,7 +273,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`SalesOrder` (
   `salesOrderID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `vATCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  `vatCost` DECIMAL(7,2) NOT NULL COMMENT '',
   `postageCost` DECIMAL(7,2) NOT NULL COMMENT '',
   `baseCost` DECIMAL(7,2) NOT NULL COMMENT '',
   `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
