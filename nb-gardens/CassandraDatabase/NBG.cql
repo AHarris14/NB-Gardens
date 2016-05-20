@@ -1,6 +1,6 @@
-CREATE KEYSPACE "NBGardens" WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
+CREATE KEYSPACE IF NOT EXIST "NBGardens" WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
 
-CREATE TABLE "NBGardens"."Product" (
+CREATE TABLE IF NOT EXIST "NBGardens"."Product" (
     "ProductID" uuid PRIMARY KEY,
     "Discount" tinyint,
     "Height" decimal,
