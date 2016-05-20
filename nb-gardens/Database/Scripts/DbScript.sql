@@ -5,8 +5,13 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema nbgardens
 -- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema nbgardens
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 -- -----------------------------------------------------
 -- Schema nbgardens
 -- -----------------------------------------------------
@@ -16,6 +21,17 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 ;
 USE `nbgardens` ;
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`CustomerStatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`CustomerStatus` (
+  `statusId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `status` VARCHAR(20) NOT NULL COMMENT '',
+  PRIMARY KEY (`statusId`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
 
 -- -----------------------------------------------------
 -- Table `nbgardens`.`Address`
@@ -37,17 +53,6 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nbgardens`.`CustomerStatus`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`CustomerStatus` (
-  `statusId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `status` VARCHAR(20) NOT NULL COMMENT '',
-  PRIMARY KEY (`statusId`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `nbgardens`.`Customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`Customer` (
@@ -63,6 +68,8 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`Customer` (
   `dateModified` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
   `customerstatus_statusId` INT(11) NOT NULL COMMENT '',
   `Address_addressId` VARCHAR(45) NOT NULL COMMENT '',
+  `username` VARCHAR(30) NULL COMMENT '',
+  `password` VARCHAR(30) NULL COMMENT '',
   PRIMARY KEY (`customerID`)  COMMENT '',
   INDEX `fk_customer_customerstatus1_idx` (`customerstatus_statusId` ASC)  COMMENT '',
   INDEX `fk_Customer_Address1_idx` (`Address_addressId` ASC)  COMMENT '',
@@ -81,14 +88,146 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nbgardens`.`Event`
+-- Table `nbgardens`.`RecoverPassword`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`Event` (
-  `eventId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `eventName` VARCHAR(30) NOT NULL COMMENT '',
-  PRIMARY KEY (`eventId`)  COMMENT '')
+CREATE TABLE IF NOT EXISTS `nbgardens`.`RecoverPassword` (
+  `Customer_customerID` INT(11) NOT NULL COMMENT '',
+  `guid` VARCHAR(45) NOT NULL COMMENT '',
+  `expiry` TIMESTAMP NOT NULL COMMENT '',
+  PRIMARY KEY (`Customer_customerID`)  COMMENT '',
+  INDEX `fk_RecoverPassword_Customer_idx` (`Customer_customerID` ASC)  COMMENT '',
+  CONSTRAINT `fk_RecoverPassword_Customer`
+    FOREIGN KEY (`Customer_customerID`)
+    REFERENCES `nbgardens`.`Customer` (`customerID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`StockStatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`StockStatus` (
+  `stockStatusId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `status` VARCHAR(30) NOT NULL COMMENT '',
+  PRIMARY KEY (`stockStatusId`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`supplierStatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`supplierStatus` (
+  `statusId` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `status` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`statusId`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`Supplier`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`Supplier` (
+  `supplierID` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Added supplier index as a Unique Index\n\nSam A, 14:13 18th May',
+  `supplierName` VARCHAR(30) NOT NULL COMMENT '',
+  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
+  `dateMod` DATETIME NULL DEFAULT NOW() COMMENT '',
+  `Address_addressId` VARCHAR(45) NOT NULL COMMENT '',
+  `supplierStatus_statusId` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`supplierID`)  COMMENT '',
+  UNIQUE INDEX `supplierID_UNIQUE` (`supplierID` ASC)  COMMENT '',
+  INDEX `fk_Supplier_Address1_idx` (`Address_addressId` ASC)  COMMENT '',
+  INDEX `fk_Supplier_supplierStatus1_idx` (`supplierStatus_statusId` ASC)  COMMENT '',
+  CONSTRAINT `fk_Supplier_Address1`
+    FOREIGN KEY (`Address_addressId`)
+    REFERENCES `nbgardens`.`Address` (`addressId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Supplier_supplierStatus1`
+    FOREIGN KEY (`supplierStatus_statusId`)
+    REFERENCES `nbgardens`.`supplierStatus` (`statusId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`Stock`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`Stock` (
+  `stockID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  `dateMod` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
+  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
+  `ReorderLevel` INT(11) NOT NULL COMMENT '',
+  `StockStatus_stockStatusId` INT(11) NOT NULL COMMENT 'Active\nIn stock but not live on customer site\nDamaged\nDiscontinued \nOut of stock\nOn hold\n',
+  `supplier_supplierID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`stockID`)  COMMENT '',
+  INDEX `fk_stock_StockStatus1_idx` (`StockStatus_stockStatusId` ASC)  COMMENT '',
+  INDEX `fk_stock_supplier1_idx` (`supplier_supplierID` ASC)  COMMENT '',
+  CONSTRAINT `fk_stock_StockStatus1`
+    FOREIGN KEY (`StockStatus_stockStatusId`)
+    REFERENCES `nbgardens`.`StockStatus` (`stockStatusId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_stock_supplier1`
+    FOREIGN KEY (`supplier_supplierID`)
+    REFERENCES `nbgardens`.`Supplier` (`supplierID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`Product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`Product` (
+  `productID` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Removed invalid foreign keys without relationships\n\nSam A, 14:13 18th May',
+  `productName` VARCHAR(45) NOT NULL COMMENT '',
+  `description` VARCHAR(200) NULL DEFAULT NULL COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  `length` DECIMAL(5,2) NOT NULL COMMENT '',
+  `height` DECIMAL(5,2) NOT NULL COMMENT '',
+  `width` DECIMAL(5,2) NOT NULL COMMENT '',
+  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
+  `dateModified` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
+  `stock_stockID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`productID`)  COMMENT '',
+  INDEX `fk_product_stock1_idx` (`stock_stockID` ASC)  COMMENT '',
+  CONSTRAINT `fk_product_stock1`
+    FOREIGN KEY (`stock_stockID`)
+    REFERENCES `nbgardens`.`Stock` (`stockID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`CustomerReview`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`CustomerReview` (
+  `Customer_customerID` INT(11) NOT NULL COMMENT '',
+  `Product_productID` INT(11) NOT NULL COMMENT '',
+  `dateCreated` TIMESTAMP NOT NULL COMMENT '',
+  `reviewDescription` TEXT NOT NULL COMMENT '',
+  `startRating` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`Customer_customerID`, `Product_productID`)  COMMENT '',
+  INDEX `fk_CustomerReview_Product1_idx` (`Product_productID` ASC)  COMMENT '',
+  CONSTRAINT `fk_CustomerReview_Customer1`
+    FOREIGN KEY (`Customer_customerID`)
+    REFERENCES `nbgardens`.`Customer` (`customerID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CustomerReview_Product1`
+    FOREIGN KEY (`Product_productID`)
+    REFERENCES `nbgardens`.`Product` (`productID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -107,22 +246,39 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nbgardens`.`Supplier`
+-- Table `nbgardens`.`stockEvent`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`Supplier` (
-  `supplierID` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Added supplier index as a Unique Index\n\nSam A, 14:13 18th May',
-  `supplierName` VARCHAR(30) NOT NULL COMMENT '',
-  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
-  `dateMod` DATETIME NULL DEFAULT NOW() COMMENT '',
-  `Address_addressId` VARCHAR(45) NOT NULL COMMENT '',
-  PRIMARY KEY (`supplierID`)  COMMENT '',
-  UNIQUE INDEX `supplierID_UNIQUE` (`supplierID` ASC)  COMMENT '',
-  INDEX `fk_Supplier_Address1_idx` (`Address_addressId` ASC)  COMMENT '',
-  CONSTRAINT `fk_Supplier_Address1`
-    FOREIGN KEY (`Address_addressId`)
-    REFERENCES `nbgardens`.`Address` (`addressId`)
+CREATE TABLE IF NOT EXISTS `nbgardens`.`stockEvent` (
+  `stockEventId` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `Staff_staffID` INT(11) NOT NULL COMMENT '',
+  `event` VARCHAR(30) NOT NULL COMMENT '',
+  `dateCreated` TIMESTAMP NOT NULL COMMENT '',
+  `Stock_stockID` INT(11) NOT NULL COMMENT '',
+  `notes` TEXT NULL COMMENT '',
+  PRIMARY KEY (`stockEventId`)  COMMENT '',
+  INDEX `fk_stockEvent_Staff1_idx` (`Staff_staffID` ASC)  COMMENT '',
+  INDEX `fk_stockEvent_Stock1_idx` (`Stock_stockID` ASC)  COMMENT '',
+  CONSTRAINT `fk_stockEvent_Staff1`
+    FOREIGN KEY (`Staff_staffID`)
+    REFERENCES `nbgardens`.`Staff` (`staffID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_stockEvent_Stock1`
+    FOREIGN KEY (`Stock_stockID`)
+    REFERENCES `nbgardens`.`Stock` (`stockID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+USE `nbgardens` ;
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`Event`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`Event` (
+  `eventId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `eventName` VARCHAR(30) NOT NULL COMMENT '',
+  PRIMARY KEY (`eventId`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -163,6 +319,7 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`PurchaseOrderEvent` (
   `staff_staffID` INT(11) NOT NULL COMMENT '',
   `purchaseorder_purchaseOrderID` INT(11) NOT NULL COMMENT '',
   `eventName` VARCHAR(30) NOT NULL COMMENT '',
+  `notes` TEXT NULL COMMENT '',
   PRIMARY KEY (`orderEventID`)  COMMENT '',
   INDEX `fk_orderevent_staff1_idx` (`staff_staffID` ASC)  COMMENT '',
   INDEX `fk_PurchaseOrderEvent_purchaseorder1_idx` (`purchaseorder_purchaseOrderID` ASC)  COMMENT '',
@@ -174,70 +331,6 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`PurchaseOrderEvent` (
   CONSTRAINT `fk_PurchaseOrderEvent_purchaseorder1`
     FOREIGN KEY (`purchaseorder_purchaseOrderID`)
     REFERENCES `nbgardens`.`PurchaseOrder` (`purchaseOrderID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `nbgardens`.`StockStatus`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`StockStatus` (
-  `stockStatusId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `status` VARCHAR(30) NOT NULL COMMENT '',
-  PRIMARY KEY (`stockStatusId`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `nbgardens`.`Stock`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`Stock` (
-  `stockID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `quantity` INT(11) NOT NULL COMMENT '',
-  `dateMod` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
-  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
-  `ReorderLevel` INT(11) NOT NULL COMMENT '',
-  `StockStatus_stockStatusId` INT(11) NOT NULL COMMENT '',
-  `supplier_supplierID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`stockID`)  COMMENT '',
-  INDEX `fk_stock_StockStatus1_idx` (`StockStatus_stockStatusId` ASC)  COMMENT '',
-  INDEX `fk_stock_supplier1_idx` (`supplier_supplierID` ASC)  COMMENT '',
-  CONSTRAINT `fk_stock_StockStatus1`
-    FOREIGN KEY (`StockStatus_stockStatusId`)
-    REFERENCES `nbgardens`.`StockStatus` (`stockStatusId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_stock_supplier1`
-    FOREIGN KEY (`supplier_supplierID`)
-    REFERENCES `nbgardens`.`Supplier` (`supplierID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `nbgardens`.`Product`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`Product` (
-  `productID` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'Removed invalid foreign keys without relationships\n\nSam A, 14:13 18th May',
-  `productName` VARCHAR(45) NOT NULL COMMENT '',
-  `description` VARCHAR(200) NULL DEFAULT NULL COMMENT '',
-  `quantity` INT(11) NOT NULL COMMENT '',
-  `length` DECIMAL(5,2) NOT NULL COMMENT '',
-  `height` DECIMAL(5,2) NOT NULL COMMENT '',
-  `width` DECIMAL(5,2) NOT NULL COMMENT '',
-  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
-  `dateModified` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
-  `stock_stockID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`productID`)  COMMENT '',
-  INDEX `fk_product_stock1_idx` (`stock_stockID` ASC)  COMMENT '',
-  CONSTRAINT `fk_product_stock1`
-    FOREIGN KEY (`stock_stockID`)
-    REFERENCES `nbgardens`.`Stock` (`stockID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -373,56 +466,21 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `nbgardens`.`SalesOrderLine`
+-- Table `nbgardens`.`purchaseReturns`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`SalesOrderLine` (
-  `orderLineId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `quantity` INT(11) NOT NULL COMMENT '',
-  `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
-  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
-  `dateMod` DATETIME NULL DEFAULT NOW() COMMENT '',
-  `salesorder_salesOrderID` INT(11) NOT NULL COMMENT '',
-  `product_productID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`orderLineId`)  COMMENT '',
-  INDEX `fk_orderline_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
-  INDEX `fk_orderline_product1_idx` (`product_productID` ASC)  COMMENT '',
-  CONSTRAINT `fk_orderline_product100`
-    FOREIGN KEY (`product_productID`)
-    REFERENCES `nbgardens`.`Product` (`productID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orderline_salesorder100`
-    FOREIGN KEY (`salesorder_salesOrderID`)
-    REFERENCES `nbgardens`.`SalesOrder` (`salesOrderID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `nbgardens`.`Returns`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`Returns` (
+CREATE TABLE IF NOT EXISTS `nbgardens`.`purchaseReturns` (
   `returnID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `quantity` INT(11) NOT NULL COMMENT '',
   `returnDate` DATE NOT NULL COMMENT '',
   `returnReason` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
   `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
   `dateMod` DATETIME NULL DEFAULT NOW() COMMENT '',
-  `PurchaseOrderLine_orderLineId` INT(11) NOT NULL COMMENT '',
-  `SalesOrderLine_orderLineId` INT(11) NOT NULL COMMENT '',
+  `purchaseOrderLine_orderLineId` INT(11) NOT NULL COMMENT '',
   PRIMARY KEY (`returnID`)  COMMENT '',
-  INDEX `fk_Returns_PurchaseOrderLine1_idx` (`PurchaseOrderLine_orderLineId` ASC)  COMMENT '',
-  INDEX `fk_Returns_SalesOrderLine1_idx` (`SalesOrderLine_orderLineId` ASC)  COMMENT '',
+  INDEX `fk_Returns_PurchaseOrderLine1_idx` (`purchaseOrderLine_orderLineId` ASC)  COMMENT '',
   CONSTRAINT `fk_Returns_PurchaseOrderLine1`
-    FOREIGN KEY (`PurchaseOrderLine_orderLineId`)
+    FOREIGN KEY (`purchaseOrderLine_orderLineId`)
     REFERENCES `nbgardens`.`PurchaseOrderLine` (`orderLineId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Returns_SalesOrderLine1`
-    FOREIGN KEY (`SalesOrderLine_orderLineId`)
-    REFERENCES `nbgardens`.`SalesOrderLine` (`orderLineId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -537,6 +595,7 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`SalesOrderEvent` (
   `salesorder_salesOrderID` INT(11) NOT NULL COMMENT '',
   `staff_staffID` INT(11) NOT NULL COMMENT '',
   `event` VARCHAR(45) NOT NULL COMMENT '',
+  `notes` TEXT NULL COMMENT '',
   PRIMARY KEY (`orderEventID`)  COMMENT '',
   INDEX `fk_orderevent_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
   INDEX `fk_orderevent_staff1_idx` (`staff_staffID` ASC)  COMMENT '',
@@ -548,6 +607,56 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`SalesOrderEvent` (
   CONSTRAINT `fk_orderevent_staff10`
     FOREIGN KEY (`staff_staffID`)
     REFERENCES `nbgardens`.`Staff` (`staffID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`SalesOrderLine`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`SalesOrderLine` (
+  `orderLineId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  `totalCost` DECIMAL(7,2) NOT NULL COMMENT '',
+  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
+  `dateMod` DATETIME NULL DEFAULT NOW() COMMENT '',
+  `salesorder_salesOrderID` INT(11) NOT NULL COMMENT '',
+  `product_productID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`orderLineId`)  COMMENT '',
+  INDEX `fk_orderline_salesorder1_idx` (`salesorder_salesOrderID` ASC)  COMMENT '',
+  INDEX `fk_orderline_product1_idx` (`product_productID` ASC)  COMMENT '',
+  CONSTRAINT `fk_orderline_product100`
+    FOREIGN KEY (`product_productID`)
+    REFERENCES `nbgardens`.`Product` (`productID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_orderline_salesorder100`
+    FOREIGN KEY (`salesorder_salesOrderID`)
+    REFERENCES `nbgardens`.`SalesOrder` (`salesOrderID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `nbgardens`.`salesReturns`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`salesReturns` (
+  `returnID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `quantity` INT(11) NOT NULL COMMENT '',
+  `returnDate` DATE NOT NULL COMMENT '',
+  `returnReason` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `dateCreated` DATETIME NOT NULL DEFAULT NOW() COMMENT '',
+  `dateMod` DATETIME NULL DEFAULT NOW() COMMENT '',
+  `salesOrderLine_orderLineId` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`returnID`)  COMMENT '',
+  INDEX `fk_Returns_SalesOrderLine1_idx` (`salesOrderLine_orderLineId` ASC)  COMMENT '',
+  CONSTRAINT `fk_Returns_SalesOrderLine10`
+    FOREIGN KEY (`salesOrderLine_orderLineId`)
+    REFERENCES `nbgardens`.`SalesOrderLine` (`orderLineId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
