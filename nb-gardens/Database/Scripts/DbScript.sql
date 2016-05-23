@@ -5,13 +5,13 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema nbgardens
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema nbgardens
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 -- -----------------------------------------------------
 -- Schema nbgardens
 -- -----------------------------------------------------
@@ -20,12 +20,12 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_gener
 -- Schema nbgardens
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+USE `nbgardens` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`orderStatus`
+-- Table `nbgardens`.`orderStatus`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`orderStatus` (
+CREATE TABLE IF NOT EXISTS `nbgardens`.`orderStatus` (
   `orderStatusId` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `status` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`orderStatusId`)  COMMENT '')
@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`salesorder` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_salesorder_orderStatus1`
     FOREIGN KEY (`orderStatus_orderStatusId`)
-    REFERENCES `mydb`.`orderStatus` (`orderStatusId`)
+    REFERENCES `nbgardens`.`orderStatus` (`orderStatusId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
