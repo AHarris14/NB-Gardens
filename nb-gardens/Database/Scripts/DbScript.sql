@@ -37,7 +37,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `nbgardens`.`customerstatus`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`customerstatus` (
-  `statusId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `statusId` TINYINT NOT NULL AUTO_INCREMENT COMMENT '',
   `status` VARCHAR(20) NOT NULL COMMENT '',
   PRIMARY KEY (`statusId`)  COMMENT '')
 ENGINE = InnoDB
@@ -54,14 +54,14 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`customer` (
   `DOB` DATE NOT NULL COMMENT '',
   `email` VARCHAR(60) NULL DEFAULT NULL COMMENT '',
   `creditRemaining` DECIMAL(7,2) NOT NULL COMMENT '',
-  `status` INT(11) NOT NULL COMMENT '',
   `phoneNumber` VARCHAR(25) NOT NULL COMMENT '',
   `dateCreated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `dateModified` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
-  `customerstatus_statusId` INT(11) NOT NULL COMMENT '',
+  `customerstatus_statusId` TINYINT NOT NULL COMMENT '',
   `Address_addressId` VARCHAR(45) NOT NULL COMMENT '',
   `username` VARCHAR(30) NULL DEFAULT NULL COMMENT '',
-  `password` VARCHAR(30) NULL DEFAULT NULL COMMENT '',
+  `password` VARCHAR(80) NULL DEFAULT NULL COMMENT '',
+  `status` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`customerID`)  COMMENT '',
   INDEX `fk_customer_customerstatus1_idx` (`customerstatus_statusId` ASC)  COMMENT '',
   INDEX `fk_Customer_Address1_idx` (`Address_addressId` ASC)  COMMENT '',
