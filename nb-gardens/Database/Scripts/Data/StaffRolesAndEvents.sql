@@ -65,10 +65,10 @@ INSERT INTO role (roleName) Values ('Supermanager');
  /*StaffRoleLink*/
 INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (2, 1);
 INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (5, 2);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 5);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 6);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (1, 6);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (3, 7);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 3);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 4);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (1, 4);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (3, 5);
 
 /*RoleEventLink*/
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (1, 15);
