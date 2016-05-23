@@ -1,0 +1,2 @@
+git update-index --add script.sh
+git update-index --chmod=+x script.sh
