@@ -1,7 +1,4 @@
-//Product queries
-
-SELECT * FROM nbgardens.product;
-
+/*Product*/
 INSERT INTO product (productId, ProductName, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
 VALUES (1, 'JBGnome', 'Gnome with the likeness of our leader, Justin Bieber.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 1);
 
@@ -14,24 +11,20 @@ VALUES (3, 'BartlettGnome', 'Gnome with the likeness of Samuel Rhett Bartlett.',
 INSERT INTO product (productId, ProductName, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
 VALUES (4, 'SilcockGnome', 'Mad Gnome fae Wiggan', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 4);
 
-INSERT INTO product (productId, ProductName, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
-VALUES (5, 'JBGnome', 'Gnome with the likeness of our leader, Justin Bieber.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 5);
-
-//Password Recovery
-
+/*Password Recovery*/
 SELECT * FROM nbgardens.recoverpassword;
 
-INSERT INTO roverpassword (Customer_customerID, guid, expiry) VALUES (1,'asd123', '2020-01-01 00:00:00');
+INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (1,'asd1555frtf23', '2020-01-01 00:00:00');
 
-INSERT INTO roverpassword (Customer_customerID, guid, expiry) VALUES (2,'asd124', '2020-01-01 00:00:00');
+INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (2,'45g6yt4egef', '2020-01-01 00:00:00');
 
-INSERT INTO roverpassword (Customer_customerID, guid, expiry) VALUES (3,'asd125', '2020-01-01 00:00:00');
+INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (3,'asd1f65g7fef25', '2020-01-01 00:00:00');
 
-INSERT INTO roverpassword (Customer_customerID, guid, expiry) VALUES (4,'asd126', '2020-01-01 00:00:00');
+INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (4,'asd1g56fgtr26', '2020-01-01 00:00:00');
 
-INSERT INTO roverpassword (Customer_customerID, guid, expiry) VALUES (5,1, 'asd127', '2020-01-01 00:00:00');
+INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (5, 'asdf54t6127', '2020-01-01 00:00:00');
 
-//Payment Details
+/*Payment Details*/
 INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber, PaymentID, Customer_customerID)
 VALUES ('0000111122223333', 'Mark Leitch', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 123, 1234567891. 1);
 
@@ -44,6 +37,4 @@ VALUES ('0000111122223335', 'Samuel Rhett Bartlett', 'Visa Credit', '2020-01-01'
 INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber, PaymentID, Customer_customerID)
 VALUES ('0000111122223336', 'Ben Stinchcombe', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 126, 1234567894. 4);
 
-INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber, PaymentID, Customer_customerID)
-VALUES ('0000111122223337', 'Euan Johnston', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 127, 1234567895. 5);
 
