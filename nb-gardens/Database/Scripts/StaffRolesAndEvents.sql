@@ -1,3 +1,21 @@
+/*Drop Constraints*/
+ALTER TABLE customer DROP FOREIGN KEY fk_Customer_Address1;
+ALTER TABLE supplier DROP FOREIGN KEY fk_Supplier_Address1;
+ALTER TABLE SalesOrder DROP FOREIGN KEY fk_salesorder_Address1;
+
+/*Make primary key auto increment*/
+Alter table address modify addressId INT AUTO_INCREMENT;
+
+/*Make foreign key columns ints*/
+Alter table customer modify Address_addressId INT;
+Alter table supplier modify Address_addressId INT;
+Alter table salesorder modify addressId INT;
+
+/*Readd constraints*/
+ALTER TABLE customer ADD CONSTRAINT fk_Customer_Address1 FOREIGN KEY(Address_addressId) REFERENCES ADDRESS(addressId);
+ALTER TABLE supplier ADD CONSTRAINT fk_Supplier_Address1 FOREIGN KEY(Address_addressId) REFERENCES ADDRESS(addressId);
+ALTER TABLE salesorder ADD CONSTRAINT fk_salesorder_Address1 FOREIGN KEY(addressId) REFERENCES ADDRESS(addressId);
+
 /*Staff*/
 insert into staff (firstname, lastname, `password`) values ('Amy', 'Stephens', '7BCtpn75G6');
 insert into staff (firstname, lastname, `password`) values ('Rachel', 'Daniels', 'G0cNZiaZiR');
@@ -65,10 +83,10 @@ INSERT INTO role (roleName) Values ('Supermanager');
  /*StaffRoleLink*/
 INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (2, 1);
 INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (5, 2);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 5);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 6);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (1, 6);
-INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (3, 7);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 3);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (6, 4);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (1, 4);
+INSERT INTO STAFFROLELINK (Role_roleId, staff_staffID) VALUES (3, 5);
 
 /*RoleEventLink*/
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (1, 15);
