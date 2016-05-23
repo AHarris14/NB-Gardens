@@ -65,7 +65,12 @@ INSERT INTO `nbgardens`.`salesorderevent` (`orderEventID`, `dateCreated`, `dateM
 INSERT INTO `nbgardens`.`salesorderevent` (`orderEventID`, `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ('5', '2016-01-01', '2016-01-03', 5, 1,'U', 'Nunc vitae libero non sapien bibendum dapibus sit amet sed mi. Proin et velit condimentum, laoreet neque eleifend, cursus orci. In hac habitasse platea dictumst. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tincidunt laoreet tristique. Phasellus pellentesque, lacus id mattis sodales, metus ante congue felis, auctor sollicitudin justo quam et risus. Quisque ut hendrerit elit. Sed id ultricies tortor. In purus ex, eleifend nec mi porttitor, cursus sollicitudin enim. Donec pulvinar, massa et cursus efficitur, ligula ante aliquet nisl, et vehicula risus quam vitae neque. Donec semper tempus dui a gravida. Nulla molestie metus ex, quis tempor lacus gravida eu. Maecenas ut est mollis, euismod ligula sed, egestas augue. Morbi a tincidunt lectus.');
 
 /*StockStatus*/
-INSERT INTO stockstatus (`status`) VALUES ('active');
+INSERT INTO stockstatus (status) VALUES ('Damaged');
+INSERT INTO stockstatus (status) VALUES ('Discontinued');
+INSERT INTO stockstatus (status) VALUES ('Recall');
+INSERT INTO stockstatus (status) VALUES ('Active');
+INSERT INTO stockstatus (status) VALUES ('Inactive');
+INSERT INTO stockstatus (status) VALUES ('Embargo');
 
 /*SupplierStatus*/
 INSERT INTO supplierstatus (`status`) values ('active');
