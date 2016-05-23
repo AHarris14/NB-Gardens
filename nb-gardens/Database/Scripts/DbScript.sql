@@ -11,26 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema nbgardens
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
--- -----------------------------------------------------
--- Schema nbgardens
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema nbgardens
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `nbgardens` DEFAULT CHARACTER SET utf8 ;
-USE `nbgardens` ;
-
--- -----------------------------------------------------
--- Table `nbgardens`.`orderStatus`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgardens`.`orderStatus` (
-  `orderStatusId` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `status` VARCHAR(45) NULL COMMENT '',
-  PRIMARY KEY (`orderStatusId`)  COMMENT '')
-ENGINE = InnoDB;
-
 USE `nbgardens` ;
 
 -- -----------------------------------------------------
@@ -72,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`customer` (
   `lastName` VARCHAR(45) NOT NULL COMMENT '',
   `DOB` DATE NOT NULL COMMENT '',
   `email` VARCHAR(60) NULL DEFAULT NULL COMMENT '',
-  `credit` DECIMAL(7,2) NOT NULL COMMENT '',
+  `creditRemaining` DECIMAL(7,2) NOT NULL COMMENT '',
   `status` INT(11) NOT NULL COMMENT '',
   `phoneNumber` VARCHAR(25) NOT NULL COMMENT '',
   `dateCreated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
@@ -264,6 +245,17 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `nbgardens`.`orderstatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `nbgardens`.`orderstatus` (
+  `orderStatusId` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `status` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`orderStatusId`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `nbgardens`.`paymentdetails`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`paymentdetails` (
@@ -303,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`salesorder` (
   `customerID` INT(11) NOT NULL COMMENT '',
   `addressId` VARCHAR(45) NOT NULL COMMENT '',
   `paymentID` INT(11) NOT NULL COMMENT '',
-  `orderStatus_orderStatusId` INT NOT NULL COMMENT '',
+  `orderStatus_orderStatusId` INT(11) NOT NULL COMMENT '',
   PRIMARY KEY (`salesOrderID`)  COMMENT '',
   INDEX `fk_salesorder_customer1_idx` (`customerID` ASC)  COMMENT '',
   INDEX `fk_salesorder_address1_idx` (`addressId` ASC)  COMMENT '',
@@ -319,14 +311,14 @@ CREATE TABLE IF NOT EXISTS `nbgardens`.`salesorder` (
     REFERENCES `nbgardens`.`customer` (`customerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  CONSTRAINT `fk_salesorder_orderStatus1`
+    FOREIGN KEY (`orderStatus_orderStatusId`)
+    REFERENCES `nbgardens`.`orderstatus` (`orderStatusId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_salesorder_paymentdetails1`
     FOREIGN KEY (`paymentID`)
     REFERENCES `nbgardens`.`paymentdetails` (`PaymentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_salesorder_orderStatus1`
-    FOREIGN KEY (`orderStatus_orderStatusId`)
-    REFERENCES `nbgardens`.`orderStatus` (`orderStatusId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
