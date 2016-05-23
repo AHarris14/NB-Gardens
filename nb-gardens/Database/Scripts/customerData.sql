@@ -8,4 +8,3 @@ VALUES
 ('Melville', 'Myers', '1960-08-23', 'MMyers60@live.com', '8423.31', '07623523523', 3, 9, 'TheRealMyers', '0757a065dfb9e249730930c941e9de0b2dec7a45'),
 ('Gyles', 'Chadwick', '1965-07-11', 'GylesChadwick@live.com', '8946.13', '01613251261', 3, 10, 'GylesChadwick', '0757a065dfb9e249730930c941e9de0b2dec7a45'),
 ('Kolo', 'Toure', '1970-01-03', 'KToure@gmail.com', '10000.00', '07896125412', 1, 11, 'Toure', 'd31a2229bcc9cccf64091a8612622f168ff05a83');
-
