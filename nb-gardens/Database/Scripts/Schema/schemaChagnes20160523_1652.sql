@@ -24,3 +24,6 @@ ALTER TABLE PURCHASEORDER
 ADD CONSTRAINT fk_purchaseorders_orderstatus
 FOREIGN KEY (statusId)
 REFERENCES orderstatus(orderStatusId);
+
+/*PaymentIdColumnMoveToFirst*/
+ALTER TABLE PAYMENTDETAILS CHANGE COLUMN PaymentID PaymentID INT NOT NULL AUTO_INCREMENT FIRST;
