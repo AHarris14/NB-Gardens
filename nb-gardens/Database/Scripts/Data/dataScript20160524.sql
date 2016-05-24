@@ -59,6 +59,21 @@ INSERT INTO `nbgardens`.`orderstatus` ( `status`) VALUES ('complete');
 INSERT INTO `nbgardens`.`orderstatus` ( `status`) VALUES ('paid');
 INSERT INTO `nbgardens`.`orderstatus` (`status`) VALUES ('dispatched');
 
+/*Payment Details*/
+ALTER TABLE paymentdetails AUTO_INCREMENT =1;
+INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber,  Customer_customerID)
+VALUES ('0000111122223333', 'Mark Leitch', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 123, 1);
+
+INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber,  Customer_customerID)
+VALUES ('0000111122223334', 'Chris Garland', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 124, 2);
+
+INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber,  Customer_customerID)
+VALUES ('0000111122223335', 'Samuel Rhett Bartlett', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 125,  3);
+
+INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber,  Customer_customerID)
+VALUES ('0000111122223336', 'Ben Stinchcombe', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 126,  4);
+
+
 /*SalesOrder*/
 ALTER TABLE salesOrder AUTO_INCREMENT =1;
 INSERT INTO `nbgardens`.`salesorder` 
@@ -80,15 +95,23 @@ VALUES
 INSERT INTO `nbgardens`.`salesorder` 
 ( `vatCost`, `postageCost`, `baseCost`, `totalCost`, `dateCreated`, `dispatchDate`, `packageCost`, `discount`, `customerId`, `addressID`, `PaymentId`, `orderStatus_OrderStatusId`) 
 VALUES 
-( '1.00', '2.50', '765.99', '768.99', '2016-01-01', '2016-01-03', '0.00', '0.00', 2, 3, 5, 4);
+( '1.00', '2.50', '765.99', '768.99', '2016-01-01', '2016-01-03', '0.00', '0.00', 2, 3, 4, 4);
+
+/*Staff*/
+ALTER TABLE staff AUTO_INCREMENT =1;
+insert into staff (firstname, lastname, `password`) values ('Amy', 'Stephens', '7BCtpn75G6');
+insert into staff (firstname, lastname, `password`) values ('Rachel', 'Daniels', 'G0cNZiaZiR');
+insert into staff (firstname, lastname, `password`) values ('Ben', 'Back', 'qzGxYcL');
+insert into staff (firstname, lastname, `password`) values ('Al', 'Stock', 'TXxekyfyF');
+insert into staff (firstname, lastname, `password`) values ('Ray', 'Smithy', 'Wtr4JU');
 
 /*SalesOrderEvent*/
 ALTER TABLE salesOrderEvent AUTO_INCREMENT =1;
-INSERT INTO `nbgardens`.`salesorderevent` (`orderEventID`, `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ('1', '2016-01-01', '2016-01-03', 1, 5, 'C', 'Nullam placerat imperdiet libero, vitae pharetra dolor mollis vel. Vestibulum et quam justo. Proin hendrerit, nibh at rutrum mattis, lorem massa egestas dui, sagittis semper neque lacus sit amet magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.');
-INSERT INTO `nbgardens`.`salesorderevent` (`orderEventID`, `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ('2', '2016-01-01', '2016-01-03', 3, 4, 'U', 'Sed fringilla iaculis hendrerit. Ut lacinia iaculis enim id imperdiet. Praesent finibus gravida lectus quis blandit. Fusce commodo faucibus sem non faucibus. Integer eu sagittis turpis, gravida porta enim. Fusce commodo finibus felis, eget luctus quam blandit sit amet. Donec malesuada mollis facilisis. Nullam at elit vitae ex tempor porta in et metus. Maecenas metus nulla, sollicitudin vehicula fringilla a, suscipit eget lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer ac condimentum metus. Aliquam ut leo quis dui egestas scelerisque. In mattis arcu a lorem vulputate lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse eget ipsum urna. ');
-INSERT INTO `nbgardens`.`salesorderevent` (`orderEventID`, `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ('3', '2016-01-01', '2016-01-03', 2, 3, 'D', 'Morbi tincidunt, neque in interdum pretium, purus arcu aliquam ex, eu ultrices tellus augue quis velit. Mauris sodales erat eu auctor consectetur. Fusce eget velit fringilla, ultrices dolor sit amet, finibus arcu. Pellentesque tincidunt orci sit amet sapien mattis, quis lobortis sapien suscipit. Praesent rhoncus convallis fringilla. Vestibulum eu tellus felis. Praesent condimentum sollicitudin lacus commodo suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam metus nunc, facilisis quis ullamcorper et, molestie eu eros. Ut vehicula felis quis tristique laoreet. ');
-INSERT INTO `nbgardens`.`salesorderevent` (`orderEventID`, `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ('4', '2016-01-01', '2016-01-03', 4, 2, 'C', 'In pretium auctor auctor. Cras nec turpis at augue imperdiet finibus at vitae sapien. Integer at risus feugiat, volutpat odio vel, mattis felis. Proin ut leo lacinia, eleifend est ac, gravida nibh. Duis pulvinar velit in ante dapibus feugiat. Donec ultricies nisl vel dolor sodales rhoncus ullamcorper a tellus. Suspendisse rhoncus risus eget tincidunt rutrum. ');
-INSERT INTO `nbgardens`.`salesorderevent` (`orderEventID`, `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ('5', '2016-01-01', '2016-01-03', 5, 1,'U', 'Nunc vitae libero non sapien bibendum dapibus sit amet sed mi. Proin et velit condimentum, laoreet neque eleifend, cursus orci. In hac habitasse platea dictumst. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tincidunt laoreet tristique. Phasellus pellentesque, lacus id mattis sodales, metus ante congue felis, auctor sollicitudin justo quam et risus. Quisque ut hendrerit elit. Sed id ultricies tortor. In purus ex, eleifend nec mi porttitor, cursus sollicitudin enim. Donec pulvinar, massa et cursus efficitur, ligula ante aliquet nisl, et vehicula risus quam vitae neque. Donec semper tempus dui a gravida. Nulla molestie metus ex, quis tempor lacus gravida eu. Maecenas ut est mollis, euismod ligula sed, egestas augue. Morbi a tincidunt lectus.');
+INSERT INTO `nbgardens`.`salesorderevent` (`dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ( '2016-01-01', '2016-01-03', 1, 5, 'C', 'Nullam placerat imperdiet libero, vitae pharetra dolor mollis vel. Vestibulum et quam justo. Proin hendrerit, nibh at rutrum mattis, lorem massa egestas dui, sagittis semper neque lacus sit amet magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.');
+INSERT INTO `nbgardens`.`salesorderevent` ( `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ( '2016-01-01', '2016-01-03', 3, 4, 'U', 'Sed fringilla iaculis hendrerit. Ut lacinia iaculis enim id imperdiet. Praesent finibus gravida lectus quis blandit. Fusce commodo faucibus sem non faucibus. Integer eu sagittis turpis, gravida porta enim. Fusce commodo finibus felis, eget luctus quam blandit sit amet. Donec malesuada mollis facilisis. Nullam at elit vitae ex tempor porta in et metus. Maecenas metus nulla, sollicitudin vehicula fringilla a, suscipit eget lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer ac condimentum metus. Aliquam ut leo quis dui egestas scelerisque. In mattis arcu a lorem vulputate lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse eget ipsum urna. ');
+INSERT INTO `nbgardens`.`salesorderevent` ( `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ( '2016-01-01', '2016-01-03', 2, 3, 'D', 'Morbi tincidunt, neque in interdum pretium, purus arcu aliquam ex, eu ultrices tellus augue quis velit. Mauris sodales erat eu auctor consectetur. Fusce eget velit fringilla, ultrices dolor sit amet, finibus arcu. Pellentesque tincidunt orci sit amet sapien mattis, quis lobortis sapien suscipit. Praesent rhoncus convallis fringilla. Vestibulum eu tellus felis. Praesent condimentum sollicitudin lacus commodo suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam metus nunc, facilisis quis ullamcorper et, molestie eu eros. Ut vehicula felis quis tristique laoreet. ');
+INSERT INTO `nbgardens`.`salesorderevent` ( `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ( '2016-01-01', '2016-01-03', 4, 2, 'C', 'In pretium auctor auctor. Cras nec turpis at augue imperdiet finibus at vitae sapien. Integer at risus feugiat, volutpat odio vel, mattis felis. Proin ut leo lacinia, eleifend est ac, gravida nibh. Duis pulvinar velit in ante dapibus feugiat. Donec ultricies nisl vel dolor sodales rhoncus ullamcorper a tellus. Suspendisse rhoncus risus eget tincidunt rutrum. ');
+INSERT INTO `nbgardens`.`salesorderevent` ( `dateCreated`, `dateMod`, `salesorder_SalesOrderId`, `staff_StaffId`, `event`, `notes`) VALUES ( '2016-01-01', '2016-01-03', 5, 1,'U', 'Nunc vitae libero non sapien bibendum dapibus sit amet sed mi. Proin et velit condimentum, laoreet neque eleifend, cursus orci. In hac habitasse platea dictumst. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tincidunt laoreet tristique. Phasellus pellentesque, lacus id mattis sodales, metus ante congue felis, auctor sollicitudin justo quam et risus. Quisque ut hendrerit elit. Sed id ultricies tortor. In purus ex, eleifend nec mi porttitor, cursus sollicitudin enim. Donec pulvinar, massa et cursus efficitur, ligula ante aliquet nisl, et vehicula risus quam vitae neque. Donec semper tempus dui a gravida. Nulla molestie metus ex, quis tempor lacus gravida eu. Maecenas ut est mollis, euismod ligula sed, egestas augue. Morbi a tincidunt lectus.');
 
 /*StockStatus*/
 ALTER TABLE stockStatus AUTO_INCREMENT =1;
@@ -102,33 +125,43 @@ INSERT INTO stockstatus (status) VALUES ('Embargo');
 /*SupplierStatus*/
 ALTER TABLE supplierstatus AUTO_INCREMENT =1;
 INSERT INTO supplierstatus (`status`) values ('active');
+INSERT INTO supplierstatus (`status`) values ('Blacklisted');
+INSERT INTO supplierstatus (`status`) values ('Flagged');
+INSERT INTO supplierstatus (`status`) values ('Preffered');
+
+
+/*Supplier*/
+ALTER TABLE supplier AUTO_INCREMENT =1;
+INSERT INTO supplier ( supplierName, Address_addressId, supplierStatus_statusId) VALUES ('Gnome Matter', 1,1);
+INSERT INTO supplier ( supplierName, Address_addressId, supplierStatus_statusId) VALUES ('Gnome Limits',2,2);
+INSERT INTO supplier ( supplierName, Address_addressId, supplierStatus_statusId) VALUES ('Good Gnomen',3,3);
+INSERT INTO supplier ( supplierName, Address_addressId, supplierStatus_statusId) VALUES ('Alpha and Gnomega',4,4);
+INSERT INTO supplier ( supplierName, Address_addressId, supplierStatus_statusId) VALUES ('Gnome Alone',5,4);
 
 /*Stock*/
 ALTER TABLE stock AUTO_INCREMENT =1;
 INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (100, 10, 1, 1);
-INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (100, 10, 1, 1);
-INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (311, 10, 1, 1);
-INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (4, 10, 1, 1);
-INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (54, 10, 1, 1);
+INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (100, 10, 2, 2);
+INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (311, 10, 4, 3);
+INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (4, 10, 5, 4);
+INSERT INTO stock (quantity, ReorderLevel, StockStatus_stockStatusId, Supplier_supplierID) VALUES (54, 10, 6, 5);
 
 /*Product*/
 ALTER TABLE product AUTO_INCREMENT =1;
-INSERT INTO product (productId, ProductName, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
-VALUES (1, 'JBGnome', 'Gnome with the likeness of our leader, Justin Bieber.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 1);
+INSERT INTO product ( ProductName, price, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
+VALUES ( 'JBGnome', 22.20, 'Gnome with the likeness of our leader, Justin Bieber.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 1);
 
-INSERT INTO product (productId, ProductName, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
-VALUES (2, '1DGnome', 'Harry Styles.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 2);
+INSERT INTO product ( ProductName, price, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
+VALUES ( '1DGnome', 0.01,'Harry Styles.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 2);
 
-INSERT INTO product (productId, ProductName, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
-VALUES (3, 'BartlettGnome', 'Gnome with the likeness of Samuel Rhett Bartlett.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 3);
+INSERT INTO product ( ProductName, price, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
+VALUES ( 'BartlettGnome', 123.36, 'Gnome with the likeness of Samuel Rhett Bartlett.', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 3);
 
-INSERT INTO product (productId, ProductName, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
-VALUES (4, 'SilcockGnome', 'Mad Gnome fae Wiggan', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 4);
+INSERT INTO product ( ProductName, price, description, quantity, length, height, width, dateCreated, dateModified, stock_stockID) 
+VALUES ( 'SilcockGnome', 36.98, 'Mad Gnome fae Wiggan', 1000, 10, 30, 10, '2005-06-01 00:00:00', '2005-06-01 00:00:00', 4);
 
 /*Password Recovery*/
 ALTER TABLE recoverPassword AUTO_INCREMENT =1;
-SELECT * FROM nbgardens.recoverpassword;
-
 INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (1,'asd1555frtf23', '2020-01-01 00:00:00');
 
 INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (2,'45g6yt4egef', '2020-01-01 00:00:00');
@@ -139,35 +172,13 @@ INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (4,'asd1g
 
 INSERT INTO recoverpassword (Customer_customerID, guid, expiry) VALUES (5, 'asdf54t6127', '2020-01-01 00:00:00');
 
-/*Payment Details*/
-ALTER TABLE paymentdetails AUTO_INCREMENT =1;
-INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber, PaymentID, Customer_customerID)
-VALUES ('0000111122223333', 'Mark Leitch', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 123, 1234567891. 1);
-
-INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber, PaymentID, Customer_customerID)
-VALUES ('0000111122223334', 'Chris Garland', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 124, 1234567892. 2);
-
-INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber, PaymentID, Customer_customerID)
-VALUES ('0000111122223335', 'Samuel Rhett Bartlett', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 125, 1234567893. 3);
-
-INSERT INTO paymentdetails (cardNumber, cardHolderName, cardType, expirationDate, dateCreated, dateModified, IssueNumber, PaymentID, Customer_customerID)
-VALUES ('0000111122223336', 'Ben Stinchcombe', 'Visa Credit', '2020-01-01', '2016-01-01 00:00:00', '2016-01-02 00:00:00', 126, 1234567894. 4);
-
 /*PurchaseOrder*/
 ALTER TABLE purchaseorder AUTO_INCREMENT =1;
-INSERT INTO `nbgardens`.`purchaseorder` (`purchaseOrderID`, `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `supplierId`, `statusId`) VALUES ('1', '1900-01-01 00:00:00', '1900-01-01 11:00:00', '12.34', '20.0', '1230.0', '1', '10', '0', '1.99', 1, 2);
-INSERT INTO `nbgardens`.`purchaseorder` (`purchaseOrderID`, `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `supplierId`, `statusId`) VALUES ('2', '1900-01-01 00:00:00', '1900-01-01 11:00:00', '54.56', '20.0', '343.78', '2', '10', '0', '1.99', 2, 1);
-INSERT INTO `nbgardens`.`purchaseorder` (`purchaseOrderID`, `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `supplierId`, `statusId`) VALUES ('3', '1900-01-01 00:00:00', '1900-01-01 11:00:00', '34.23', '20.0', '345.98', '3', '10', '0', '1.99', 1, 3);
-INSERT INTO `nbgardens`.`purchaseorder` (`purchaseOrderID`, `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `supplierId`, `statusId`) VALUES ('4', '1900-01-01 00:00:00', '1900-01-01 11:00:00', '854.12', '20.0', '26.98', '4', '10', '0', '1.99', 3, 2);
-INSERT INTO `nbgardens`.`purchaseorder` (`purchaseOrderID`, `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `supplierId`, `statusId`) VALUES ('5', '1900-01-01 00:00:00', '1900-01-01 11:00:00', '234.93', '20.0', '245.45', '5', '10', '0', '1.99',4, 4);
-
-/*Staff*/
-ALTER TABLE staff AUTO_INCREMENT =1;
-insert into staff (firstname, lastname, `password`) values ('Amy', 'Stephens', '7BCtpn75G6');
-insert into staff (firstname, lastname, `password`) values ('Rachel', 'Daniels', 'G0cNZiaZiR');
-insert into staff (firstname, lastname, `password`) values ('Ben', 'Back', 'qzGxYcL');
-insert into staff (firstname, lastname, `password`) values ('Al', 'Stock', 'TXxekyfyF');
-insert into staff (firstname, lastname, `password`) values ('Ray', 'Smithy', 'Wtr4JU');
+INSERT INTO `nbgardens`.`purchaseorder` ( `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `Supplier_supplierID` ) VALUES ( '1900-01-01 00:00:00', '1900-01-01 11:00:00', 12.34, 20.0, 1230.0, 1, 10, 0, 1.99, 1);
+INSERT INTO `nbgardens`.`purchaseorder` ( `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `Supplier_supplierID` ) VALUES ( '1900-01-01 00:00:00', '1900-01-01 11:00:00', 54.56, 20.0, 343.78, 2, 10, 0, 1.99, 2);
+INSERT INTO `nbgardens`.`purchaseorder` ( `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `Supplier_supplierID` ) VALUES ( '1900-01-01 00:00:00', '1900-01-01 11:00:00', 34.23, 20.0, 345.98, 3, 10, 0, 1.99, 1);
+INSERT INTO `nbgardens`.`purchaseorder` ( `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `Supplier_supplierID` ) VALUES ( '1900-01-01 00:00:00', '1900-01-01 11:00:00', 854.12, 20.0, 26.98, 4, 10, 0, 1.99, 3);
+INSERT INTO `nbgardens`.`purchaseorder` ( `dateCreated`, `dispatchDate`, `baseCost`, `vatCost`, `totalCost`, `statusID`, `deliveryCost`, `discount`, `packageCost`, `Supplier_supplierID` ) VALUES ( '1900-01-01 00:00:00', '1900-01-01 11:00:00', 234.93, 20.0, 245.45, 5, 10, 0, 1.99,4);
 
 /*Events*/
 ALTER TABLE `event` AUTO_INCREMENT =1;
@@ -247,26 +258,33 @@ INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (3, 6);
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (3, 7);
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (3, 8);
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (2, 10);
-INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (4,12);
-INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (4,17);
-INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (4,33);
+INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (4, 12);
+INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (4, 17);
+INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (4, 33);
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (5, 10);
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (6, 7);
 INSERT INTO roleeventlink (Role_roleId, Event_eventId) VALUES (7, 7);
 
+/*SalesOrderLine*/
+ALTER TABLE salesOrderLine AUTO_INCREMENT = 1;
+INSERT INTO salesOrderLine (quantity, totalCost, salesorder_salesOrderID, Product_productID) VALUES (2, 44.40 ,1,1);
+INSERT INTO salesOrderLine (quantity, totalCost, salesorder_salesOrderID, Product_productID) VALUES (1, 0.01 ,2,2);
+INSERT INTO salesOrderLine (quantity, totalCost, salesorder_salesOrderID, Product_productID) VALUES (3, 0.03 ,3,3);
+INSERT INTO salesOrderLine (quantity, totalCost, salesorder_salesOrderID, Product_productID) VALUES (1, 123.36 ,4,4);
+INSERT INTO salesOrderLine (quantity, totalCost, salesorder_salesOrderID, Product_productID) VALUES (10,369.8 ,5,4);
+
 /*SalesReturns*/
 ALTER TABLE salesReturns AUTO_INCREMENT =1;
-INSERT INTO `nbgardens`.`salesreturns` (`returnID`, `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ('1', '1', '2016-01-16', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 1);
-INSERT INTO `nbgardens`.`salesreturns` (`returnID`, `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ('2', '1', '2016-01-17', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 2);
-INSERT INTO `nbgardens`.`salesreturns` (`returnID`, `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ('3', '1', '2016-01-18', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 3);
-INSERT INTO `nbgardens`.`salesreturns` (`returnID`, `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ('4', '1', '2016-01-19', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 4);
-INSERT INTO `nbgardens`.`salesreturns` (`returnID`, `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ('5', '1', '2016-01-11', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 5);
+INSERT INTO `nbgardens`.`salesreturns` ( `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ( '1', '2016-01-16', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 1);
+INSERT INTO `nbgardens`.`salesreturns` ( `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ( '1', '2016-01-17', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 2);
+INSERT INTO `nbgardens`.`salesreturns` ( `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ( '1', '2016-01-18', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 3);
+INSERT INTO `nbgardens`.`salesreturns` (`quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ( '1', '2016-01-19', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 4);
+INSERT INTO `nbgardens`.`salesreturns` ( `quantity`, `returnDate`, `returnReason`, `dateCreated`, `dateMod`, `salesOrderLine_orderLineId`) VALUES ( '1', '2016-01-11', 'Mauris euismod sem vitae arcu ornare laoreet.', '1952-01-01', '1874-03-04', 5);
 
-/*OrderLine*/
-ALTER TABLE orderLine AUTO_INCREMENT =1;
-INSERT INTO `nbgardens`.`orderline` (`productId`, `quantity`, `orderId`, `totalCost`, `dateCreated`) VALUES (1, 1, 1, 12.99, '2015-01-01');
-INSERT INTO `nbgardens`.`orderline` (`productId`, `quantity`, `orderId`, `totalCost`, `dateCreated`) VALUES (2, 1, 2, 3.00, '2015-01-01');
-INSERT INTO `nbgardens`.`orderline` (`productId`, `quantity`, `orderId`, `totalCost`, `dateCreated`) VALUES (3, 1, 3, 99.00, '2015-01-01');
-INSERT INTO `nbgardens`.`orderline` (`productId`, `quantity`, `orderId`, `totalCost`, `dateCreated`) VALUES (4, 1, 4, 120.00, '2015-01-01');
-INSERT INTO `nbgardens`.`orderline` (`productId`, `quantity`, `orderId`, `totalCost`, `dateCreated`) VALUES (5, 1, 5, 50.00, '2015-01-01');
+/*CustomerReview*/
+INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDescription`,`starRating`) VALUES (1,2,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quae magni inventore facilis, earum hic officiis atque quisquam placeat obcaecati repellendus dolorem commodi odit, animi sunt nulla voluptatum, ullam debitis!', 4);
+INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDescription`,`starRating`) VALUES (3,4,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quae magni inventore facilis, earum hic officiis atque quisquam placeat obcaecati repellendus dolorem commodi odit, animi sunt nulla voluptatum, ullam debitis!', 4);
+INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDescription`,`starRating`) VALUES (5,3,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quae magni inventore facilis, earum hic officiis atque quisquam placeat obcaecati repellendus dolorem commodi odit, animi sunt nulla voluptatum, ullam debitis!', 4);
+INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDescription`,`starRating`) VALUES (4,1,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quae magni inventore facilis, earum hic officiis atque quisquam placeat obcaecati repellendus dolorem commodi odit, animi sunt nulla voluptatum, ullam debitis!', 4);
+INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDescription`,`starRating`) VALUES (2,4,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quae magni inventore facilis, earum hic officiis atque quisquam placeat obcaecati repellendus dolorem commodi odit, animi sunt nulla voluptatum, ullam debitis!', 4);
 
