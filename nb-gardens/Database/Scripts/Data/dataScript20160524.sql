@@ -288,3 +288,12 @@ INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDe
 INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDescription`,`starRating`) VALUES (4,1,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quae magni inventore facilis, earum hic officiis atque quisquam placeat obcaecati repellendus dolorem commodi odit, animi sunt nulla voluptatum, ullam debitis!', 4);
 INSERT INTO CUSTOMERREVIEW (`Customer_customerID`, `product_productID`,`reviewDescription`,`starRating`) VALUES (2,4,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quae magni inventore facilis, earum hic officiis atque quisquam placeat obcaecati repellendus dolorem commodi odit, animi sunt nulla voluptatum, ullam debitis!', 4);
 
+/*purchaseOrderLog*/
+INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, eventName) VALUES (1,1, 'created');
+INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, eventName) VALUES (2,6, 'orderline adder');
+INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, eventName) VALUES (3,3, 'orderline deleted');
+INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, eventName) VALUES (4,4, 'orderline quantity changed');
+INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, eventName) VALUES (5,5, 'orderline product changed');
+
+
+
