@@ -18,7 +18,7 @@ USE `nbgardens` ;
 -- Table `nbgardens`.`address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `nbgardens`.`address` (
-  `addressId` VARCHAR(45) NOT NULL COMMENT '',
+  `addressId` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
   `addressLine1` VARCHAR(50) NOT NULL COMMENT '',
   `addressLine2` VARCHAR(30) NOT NULL COMMENT '',
   `postCode` VARCHAR(10) NOT NULL COMMENT '',

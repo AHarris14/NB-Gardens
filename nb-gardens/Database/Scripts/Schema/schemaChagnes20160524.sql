@@ -24,3 +24,6 @@ ALTER TABLE product ADD price decimal(7,2) AFTER productName;
 /*RenameCustoemrReviewColumns*/
 ALTER TABLE CUSTOMERREVIEW CHANGE dateCreated dateModified timestamp;
 ALTER TABLE CUSTOMERREVIEW CHANGE STARTRATING starRating int(11);
+
+/*Rename purchase order event table to purchase order log*/
+RENAME TABLE puchaseOrderEvent TO purchaseOrderLog;
