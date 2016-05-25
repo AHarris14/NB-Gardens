@@ -295,5 +295,9 @@ INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, event
 INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, eventName) VALUES (4,4, 'orderline quantity changed');
 INSERT INTO puchaseOrderLog (staff_staffID, purchaseorder_purchaseOrderID, eventName) VALUES (5,5, 'orderline product changed');
 
-
-
+/*stocklog*/
+INSERT INTO stocklog (staff_staffId, `event`, stock_stockId) VALUES (1, 'new supplier',1);
+INSERT INTO stocklog (staff_staffId, `event`, stock_stockId) VALUES (2,'arrived',3);
+INSERT INTO stocklog (staff_staffId, `event`, stock_stockId) VALUES (3, 'live',4);
+INSERT INTO stocklog (staff_staffId, `event`, stock_stockId) VALUES (4, 'suspended',5);
+INSERT INTO stocklog (staff_staffId, `event`, stock_stockId) VALUES (5,'damaged 2 units',2);
